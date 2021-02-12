@@ -9,7 +9,7 @@
             <form class="mt-20" action="{{ route('threads.store') }}" enctype="multipart/form-data" method="post">
                 @csrf
 
-                <input type="text" name="title" class="mb-10 w-96" placeholder="Title">
+                <input type="text" name="title" value="{{ old('title') }}" class="mb-10 w-96" placeholder="Title">
                 @if ($errors->has('title'))
                     <span class="text-red-600" role="alert">
                         <strong>{{ $errors->first('title') }}</strong>
