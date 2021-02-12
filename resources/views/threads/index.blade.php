@@ -27,11 +27,19 @@
                                 {{ $threads->links() }}
                             </div>
 
-                        <div class="flex mx-auto">
+
                         <table id="thread-table" class="w-10/12 mb-10">
                             <tr class="text-white text-3xl  bg-blue-400">
-                                <th class="py-2">
+                                <th class="py-2 pl-5 text-left">
                                     Topic
+                                    <a href="
+                                    @if(Request::getRequestUri() == '/threads?sort=asc')
+                                        /threads?sort=desc
+                                        @else
+                                        /threads?sort=asc
+                                            @endif">
+                                        <img src="/storage/assets/arrow-point-to-down.png"/></a>
+
                                 </th>
                                 <th class="">
                                     Comments
@@ -42,8 +50,8 @@
                             </tr>
                             @foreach($threads as $thread)
                             <tr class="w-96 border-black border-b bg-gray-200 ">
-                                <td class="pl-5 pb-4 text-center">
-                                    <a class="underline hover:no-underline text-blue-600 hover:text-black transition-all" href="/threads/{{ $thread->id }}"><h3 class="text-5xl mt-16 mb-5">{{ $thread->title }}</h3></a>
+                                <td class="pl-5 pb-4">
+                                    <a class="underline hover:no-underline text-blue-600 hover:text-black transition-all" href="/threads/{{ $thread->id }}"><h3 class="text-2xl max-w-md mt-16 mb-5">{{ $thread->title }}</h3></a>
                                     <h4>By <a class="underline hover:no-underline text-blue-600 hover:text-black transition-all" href="/profile/{{ $thread->user->id }}">{{ $thread->user->username }}</a></h4>
                                     <p class="text-gray-400 mb-16">{{ \Carbon\Carbon::parse($thread->created_at)->diffForHumans() }}</p>
                                 </td>
@@ -68,7 +76,7 @@
 
                             @endforeach
                         </table>
-                        </div>
+
 
 @endif
 
