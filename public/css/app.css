@@ -1,7 +1,3 @@
-#thread-table tr:nth-child(even) {
-    background-color: #c9c9c9;!important;
-}
-
 /*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
 /*
@@ -58,7 +54,15 @@ Improve consistency of default fonts in all browsers. (https://github.com/sindre
 
 body {
   font-family:
-	'Titillium Web', sans-serif;
+		system-ui,
+		-apple-system, /* Firefox supports this but not yet `system-ui` */
+		'Segoe UI',
+		Roboto,
+		Helvetica,
+		Arial,
+		sans-serif,
+		'Apple Color Emoji',
+		'Segoe UI Emoji';
 }
 
 /*
@@ -369,6 +373,10 @@ html {
  * a class directly on the `html` element.
  */
 
+body {
+  font-family: inherit;
+  line-height: inherit;
+}
 
 /**
  * 1. Prevent padding and border from affecting element width.
@@ -184435,6 +184443,4 @@ select {
             animation: bounce 1s infinite;
   }
 }
-
-
 
