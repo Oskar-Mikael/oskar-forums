@@ -17,9 +17,11 @@ class ThreadsController extends Controller
 
     public function index()
     {
-        $threads = Thread::latest()->with('latestComment')->paginate(10);
+        $sort = request('sort', 'desc');
 
-        return view('threads.index', compact('threads'));
+        $threads = Thread::orderBy('created_at', $sort)->with('latestComment')->paginate(10);
+
+        return view('threads.index', compact('threads', 'sort'));
     }
 
     public function show(Thread $thread, Comment $comment, User $user)
