@@ -26,6 +26,9 @@ Route::get('/profile/{user}', [ProfilesController::class, 'index'])->name('profi
 Route::get('/profile/{user}/edit', [ProfilesController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile/{user}', [ProfilesController::class, 'update'])->name('profile.update');
 
+Route::get('/category', [CategoriesController::class, 'index'])->name('category.index');
+Route::get('/category/{category}', [CategoriesController::class, 'show'])->name('category.show');
+
 Route::get('/threads', [ThreadsController::class, 'index'])->name('threads.index');
 Route::get('/threads/create', [ThreadsController::class, 'create'])->name('threads.create');
 Route::get('/threads/{thread}/edit', [ThreadsController::class, 'edit'])->name('threads.edit');
@@ -38,9 +41,6 @@ Route::get('/threads/{thread}/comment', [CommentsController::class, 'create']);
 Route::post('/threads/{thread}', [CommentsController::class, 'addThreadComment'])->name('comments.store');
 Route::delete('/threads/{thread}/comment', [CommentsController::class, 'destroy'])->name('comments.destroy');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
 
