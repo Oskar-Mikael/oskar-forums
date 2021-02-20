@@ -8,23 +8,29 @@
         <div class="row-span-1">
             <div class="col-auto">
                 <div>
+                    <h4 class="mt-5 underline hover:no-underline text-blue-600 hover:text-black transition-all"><a href="/category"><- Back</a></h4>
                     @if(session()->has('message'))
                         <div id="threads-delete-message" class="text-2xl text-white text-center mt-20 bg-green-500 w-1/2 mx-auto py-1 rounded border-black border-2">
                             {{ session()->get('message') }}
                             <button id="threads-delete-message-button" class="float-right mr-5 outline-none">X</button>
                         </div>
                     @endif
+                    <div class="text-center mt-10 text-4xl">
+                        <h2>
+                            {{$category->title}}
+                        </h2>
+                    </div>
                     <div class="mt-10 flex justify-end">
-
+                        
                     @if (Auth::user())
                         <a href="{{ route('threads.create') }}" class="bg-green-500 text-white text-2xl py-3 px-7 hover:bg-green-400 transition-all rounded-lg">Create Thread</a>
                     @endif
                     </div>
-                    @if ($threads->count() == 0)
-                        <h3 class="text-5xl mt-20 mb-5">There are no threads</h3>
+                    @if ($category->threads->count() == 0)
+                        <h3 class="text-3xl mt-20 mb-5">There are no threads</h3>
                     @else
                             <div class="flex mt-5 pb-10 justify-self-start" >
-                                {{ $threads->links() }}
+                                
                             </div>
 
 
@@ -33,10 +39,10 @@
                                 <th class="py-2 pl-5 text-left">
                                     Topic
                                     <a href="
-                                    @if(Request::getRequestUri() == '/threads?sort=asc')
-                                        /threads?sort=desc
+                                    @if(Request::getRequestUri() == '/category/{{ $category->id }}?sort=asc')
+                                        /category/{{$category->id}}?sort=desc
                                         @else
-                                        /threads?sort=asc
+                                        /category/{{$category->id}}?sort=asc
                                             @endif">
                                         <img src="/storage/assets/arrow-point-to-down.png"/></a>
 
@@ -48,7 +54,7 @@
                                     Latest post
                                 </th>
                             </tr>
-                            @foreach($threads as $thread)
+                            @foreach($category->threads as $thread)
                             <tr class="w-96 border-black border-b bg-gray-200 ">
                                 <td class="pl-5 pb-4">
                                     <a class="underline hover:no-underline text-blue-600 hover:text-black transition-all" href="/threads/{{ $thread->id }}"><h3 class="text-2xl max-w-md mt-16 mb-5">{{ $thread->title }}</h3></a>

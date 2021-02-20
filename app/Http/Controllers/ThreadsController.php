@@ -7,6 +7,7 @@ use App\Models\Thread;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 
 class ThreadsController extends Controller
 {
@@ -24,31 +25,33 @@ class ThreadsController extends Controller
         return view('threads.index', compact('threads', 'sort'));
     }
 
-    public function show(Thread $thread, Comment $comment, User $user)
+    public function show(Thread $thread, Comment $comment, User $user, Category $category)
     {
         $comments = Comment::all();
 
-        return view('threads.show', compact('thread', 'comment', 'comments', 'user'));
+        return view('threads.show', compact('thread', 'comment', 'comments', 'user', 'category'));
     }
 
-    public function create() {
-        return view('threads.create');
+    public function create(Category $category) {
+        return view('threads.create', compact('category'));
     }
 
     public function store(Request $request) {
         $this->validate($request, [
             'title' => 'required',
-            'body' => 'required'
+            'body' => 'required',
+            'category' => 'required',
         ]);
 
         $thread = new Thread();
         $thread->title = $request->title;
         $thread->body = $request->body;
         $thread->user_id = auth()->user()->id;
+        $thread->category_id = $request->category;
 
         auth()->user()->threads()->save($thread);
 
-        return redirect('/threads')->with('message', 'Thread Created');
+        return redirect('/category/' . $thread->category_id)->with('message', 'Thread Created');
     }
 
     public function edit(Thread $thread)
@@ -75,6 +78,6 @@ class ThreadsController extends Controller
         $thread = Thread::findOrFail($id);
         $thread->delete();
 
-        return redirect('/threads')->with('message', 'Thread Deleted');
+        return redirect('/category/' . $thread->category_id)->with('message', 'Thread Deleted');
     }
 }

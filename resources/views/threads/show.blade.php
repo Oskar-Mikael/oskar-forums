@@ -2,11 +2,11 @@
 <title>{{ $thread->title }} - Oskar Forums</title>
 @section('content')
 
-    <div class="mx-auto container">
+    <div class="mx-auto container pb-16">
         <div class="row-span-1">
             <div class="col-auto">
                 <div>
-                    <h4 class="mt-5 underline hover:no-underline text-blue-600 hover:text-black transition-all"><a href="{{ route('threads.index') }}"><- Back</a></h4>
+                    <h4 class="mt-5 underline hover:no-underline text-blue-600 hover:text-black transition-all"><a href="/category/{{ $thread->category_id }}"><- Back</a></h4>
                     @if(session()->has('message'))
                         <div id="threads-delete-message" class="text-2xl text-white text-center mt-20 bg-green-500 w-1/2 mx-auto py-1 rounded border-black border-2">
                             {{ session()->get('message') }}
@@ -28,7 +28,7 @@
                     @can ('update', $thread)
                         <a class="underline hover:no-underline text-blue-600 hover:text-black" href="/threads/{{ $thread->id }}/edit">Edit Thread</a><br>
                     @endcan
-
+                        <a href="/category/{{ $thread->category_id }}">{{ $thread->category_id }}</a>
                     @can ('update', $thread)
                         <form action="{{ route('threads.destroy', $thread->id) }}" method="post">
                             @csrf
