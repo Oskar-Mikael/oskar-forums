@@ -6,7 +6,7 @@
         <div class="row-span-1">
             <div class="col-auto">
                 <div>
-                    <h4 class="mt-5 underline hover:no-underline text-blue-600 hover:text-black transition-all"><a href="/category/{{ $thread->category_id }}"><- Back</a></h4>
+                    <h4 class="mt-5"><a class="link-text" href="/category/{{ $thread->category_id }}"><- Back</a></h4>
                     @if(session()->has('message'))
                         <div id="threads-delete-message" class="text-2xl text-white text-center mt-20 bg-green-500 w-1/2 mx-auto py-1 rounded border-black border-2">
                             {{ session()->get('message') }}
@@ -17,7 +17,7 @@
 
                             <h2 class="text-5xl mt-20 mb-5">{{ $thread->title }}</h2>
                             <h3 class="text-2xl mb-20">
-                                {{ $thread->body }}
+                                {!! nl2br(e($thread->body)) !!}
 
                             </h3>
                         </article>
@@ -26,14 +26,14 @@
                             <p class="text-gray-400">(Edited)</p>
                             @endif
                     @can ('update', $thread)
-                        <a class="underline hover:no-underline text-blue-600 hover:text-black" href="/threads/{{ $thread->id }}/edit">Edit Thread</a><br>
+                        <a class="link-text" href="/threads/{{ $thread->id }}/edit">Edit Thread</a><br>
                     @endcan
-                        <a href="/category/{{ $thread->category_id }}">{{ $thread->category_id }}</a>
+                        <a href="/category/{{ $thread->category_id }}">{{ $category->title }}</a>
                     @can ('update', $thread)
                         <form action="{{ route('threads.destroy', $thread->id) }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" name="delete" onclick="return confirm('Are you sure you want to delete this thread?')" class="rounded 2xl:bg-red-600 text-white py-2 px-4 my-10">Delete Thread</button>
+                            <button type="submit" name="delete" onclick="return confirm('Are you sure you want to delete this thread?')" class="text-red-600 my-10">Delete Thread</button>
                         </form>
                     @endcan
                         <hr>
@@ -66,7 +66,7 @@
             @endforeach
 
             @if (Auth::user())
-                <a href="/threads/{{ $thread->id }}/comment" class="mb-10 underline hover:no-underline text-blue-600 hover:text-black">Post comment</a>
+                <a href="/threads/{{ $thread->id }}/comment" class="mb-10 link-text">Post comment</a>
             @else
                 <h3 class="text-2xl">
                     To post a comment, please <a class="underline hover:no-underline text-blue-600 hover:text-black" href="{{ route('login') }}">login</a>

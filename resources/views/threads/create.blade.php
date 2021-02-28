@@ -4,7 +4,7 @@
 
     <div class="mx-auto container">
         <div class="row-span-1">
-            <h4 class="mt-5 underline hover:no-underline text-blue-600 hover:text-black transition-all"><a
+            <h4 class="mt-5"><a class="link-text"
                 href="{{ url()->previous() }}">
                     <- Back</a>
             </h4>
@@ -27,11 +27,17 @@
                 @endif
                     <br>
                 <select name="category" class="mb-8">
-                    <option hidden>Select the category</option>
+                    <option value="" hidden>Select the category</option>
                     <option value="1">Family</option>
                     <option value="2">Gaming</option>
                     <option value="3">General</option>
+                    <option value="4">Politics</option>
                 </select>
+                @if($errors->has('category'))
+                <span class="text-red-600" role="alert">
+                    <strong>{{ $errors->first('category') }}</strong>
+                </span>
+            @endif
                 <br>
                 <button class="bg-blue-600 text-white p-2 rounded" type="submit">Create Thread</button>
             </form>

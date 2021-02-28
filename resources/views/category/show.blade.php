@@ -8,7 +8,7 @@
         <div class="row-span-1">
             <div class="col-auto">
                 <div>
-                    <h4 class="mt-5 underline hover:no-underline text-blue-600 hover:text-black transition-all"><a href="/category"><- Back</a></h4>
+                    <h4 class="mt-5"><a class="link-text" href="/category"><- Back</a></h4>
                     @if(session()->has('message'))
                         <div id="threads-delete-message" class="text-2xl text-white text-center mt-20 bg-green-500 w-1/2 mx-auto py-1 rounded border-black border-2">
                             {{ session()->get('message') }}
@@ -57,8 +57,8 @@
                             @foreach($category->threads as $thread)
                             <tr class="w-96 border-black border-b bg-gray-200 ">
                                 <td class="pl-5 pb-4">
-                                    <a class="underline hover:no-underline text-blue-600 hover:text-black transition-all" href="/threads/{{ $thread->id }}"><h3 class="text-2xl max-w-md mt-16 mb-5">{{ $thread->title }}</h3></a>
-                                    <h4>By <a class="underline hover:no-underline text-blue-600 hover:text-black transition-all" href="/profile/{{ $thread->user->id }}">{{ $thread->user->username }}</a></h4>
+                                    <a class="link-text" href="/threads/{{ $thread->id }}"><h3 class="text-2xl max-w-md mt-16 mb-5">{{ $thread->title }}</h3></a>
+                                    <h4>By <a class="link-text" href="/profile/{{ $thread->user->id }}">{{ $thread->user->username }}</a></h4>
                                     <p class="text-gray-400 mb-16">{{ \Carbon\Carbon::parse($thread->created_at)->diffForHumans() }}</p>
                                 </td>
 
@@ -67,15 +67,15 @@
                                 </td>
                                 <td class="text-center">
                                     @if($thread->comments->count() === 0)
-                                        By <a class="underline hover:no-underline text-blue-600 hover:text-black transition-all" href="/profile/{{ $thread->user->id }}">{{ $thread->user->username }}</a><br>
+                                        By <a class="link-text" href="/profile/{{ $thread->user->id }}">{{ $thread->user->username }}</a><br>
                                         {{ \Carbon\Carbon::parse($thread->created_at)->diffForHumans() }}
                                         @else
 
-                                            By <a class="underline hover:no-underline text-blue-600 hover:text-black transition-all" href="/profile/{{ $thread->latestComment->user->id }}">{{ $thread->latestComment->user->username }}</a><br>
+                                            By <a class="link-text" href="/profile/{{ $thread->latestComment->user->id }}">{{ $thread->latestComment->user->username }}</a><br>
                                        {{ \Carbon\Carbon::parse($thread->latestComment->created_at)->diffForHumans() }}
 
                                        @endif
-
+                                        
                                 </td>
                             </tr>
 
