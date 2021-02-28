@@ -10,9 +10,11 @@ class CategoriesController extends Controller
 {
     public function index()
     {
+        $threads = Thread::all();
+
         $categories = Category::orderBy('title')->get();
 
-         return view('category.index', compact('categories'));
+         return view('category.index', compact('categories', 'threads'));
     }
 
     public function show(Category $category, Thread $thread) 
