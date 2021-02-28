@@ -18,11 +18,13 @@ class ThreadsController extends Controller
 
     public function index()
     {
+        $category = Category::orderby('title')->get();
+
         $sort = request('sort', 'desc');
 
         $threads = Thread::orderBy('created_at', $sort)->with('latestComment')->paginate(10);
 
-        return view('threads.index', compact('threads', 'sort'));
+        return view('threads.index', compact('threads', 'sort', 'category'));
     }
 
     public function show(Thread $thread, Comment $comment, User $user, Category $category)
@@ -76,6 +78,7 @@ class ThreadsController extends Controller
     public function destroy($id)
     {
         $thread = Thread::findOrFail($id);
+        $thread->comments()->delete();
         $thread->delete();
 
         return redirect('/category/' . $thread->category_id)->with('message', 'Thread Deleted');
