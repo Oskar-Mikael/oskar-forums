@@ -1,3 +1,14 @@
 #thread-table tr:nth-child(even) {
-    background-color: #c9c9c9;!important;
+    background-color: #c9c9c9!important;
+}
+
+.link-text {
+    text-decoration: underline;
+    color: rgba(37, 99, 235);
+    transition: all 150ms cubic-bezier();
+}
+
+.link-text:hover {
+    text-decoration: none;
+    color: black;
 }
